@@ -26,4 +26,13 @@ async def on_ready():
 async def zkontroluj(ctx, jmeno: str, realm: str = None):
     await ctx.send(armory.find_char(jmeno, realm))
 
+
+@bot.command()
+async def pomoc(ctx):
+    await ctx.send("__Dostupné příkazy:__ \n"
+                   "**++pomoc** - zobrazí dostupné příkazy \n"
+                   "**++zkontroluj** _postava_ _realm_ - zkontroluje enchanty a gemy dané postavy. Jméno realmu pište jednoslovně a ideálně camelcase \n"
+                   )
+
+
 bot.run(TOKEN)
