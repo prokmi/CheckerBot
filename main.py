@@ -31,8 +31,14 @@ async def zkontroluj(ctx, jmeno: str, realm: str = None):
 async def pomoc(ctx):
     await ctx.send("__Dostupné příkazy:__ \n"
                    "**++pomoc** - zobrazí dostupné příkazy \n"
-                   "**++zkontroluj** _postava_ _realm_ - zkontroluje enchanty a gemy dané postavy. Jméno realmu pište jednoslovně a ideálně camelcase \n"
+                   "**++zkontroluj** _postava_ _realm_ - zkontroluje enchanty a gemy dané postavy. Jméno realmu pište jednoslovně a ideálně camelcase. "
+                   "V případě, že se jedná o Drak'thul, se realm vyplňovat nemusí vůbec. Pokud je postava na Burning Blade a neexistuje na Drak'thulu, tak taky ne.\n"
                    )
+
+
+@bot.command()
+async def inspekce(ctx):
+    await ctx.send(armory.check_members())
 
 
 bot.run(TOKEN)

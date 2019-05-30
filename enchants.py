@@ -30,5 +30,9 @@ class Enchants:
         # Death Knight Enchants
         3368: "Rune of the Fallen Crusader",
         3847: "Rune of the Stoneskin Gargoyle",
-        3370: "Rune of Razorice"
+        3370: "Rune of Razorice",
+
+        # Hunter scopes
+        5957: "Incendiary Ammunition",
+
     }

@@ -29,9 +29,10 @@ class ArmoryAPI:
             # TODO yeah, i don't know either - maybe list all realms
             realm = "Burning Blade"
         else:
-            logger.info(f"Received realm {realm}, parsing it into two words..")
-            realm = " ".join(re.findall('[A-Z][^A-Z]*', realm))
-            logger.info(f"Realm parsed as {realm}")
+            if not " " in realm:
+                logger.info(f"Received realm {realm}, parsing it into two words..")
+                realm = " ".join(re.findall('[A-Z][^A-Z]*', realm))
+                logger.info(f"Realm parsed as {realm}")
 
         try:
             logger.info(f"Searching for {char_name} on {realm}..")
@@ -209,3 +210,42 @@ class ArmoryAPI:
             for gem in gems:
                 response = response + f":scream: Chybí gem v itemu [{gem['name']}] (slot: {gem['slot']}), ilvl: {gem['itemLevel']} :scream: \n"
         return response
+
+    def get_guild_members(self):
+        logger.info("Getting guild roster..")
+        guild = self.api.get_guild_profile("eu", "Drak'thul", "Wolves of Darkness", fields="members")
+        guild_roster = []
+        for member in guild["members"]:
+            if int(member["rank"]) < 2:
+                guild_member = {
+                    "name": member['character']['name'],
+                    "realm": member['character']['realm']
+                }
+                guild_roster.append(guild_member)
+        logger.info(f"Guild roster: {guild_roster}")
+        return guild_roster
+
+    def check_members(self):
+        guild_roster = self.get_guild_members()
+        result = "|    Postava    |    Ench    |    Gem    |\n"
+        enchanted = ""
+        gemmed = ""
+        max_len = 15
+        for guild_member in guild_roster:
+            current_member = self.find_char(char_name=guild_member['name'], realm=guild_member['realm'])
+            if "enchant na" in current_member:
+                enchanted = ":no_entry:"
+            elif not "enchant na" in current_member:
+                enchanted = ":white_check_mark:"
+
+            if "gem v" in current_member:
+                gemmed = ":no_entry:"
+            elif not "gem v" in current_member:
+                gemmed = ":white_check_mark:"
+
+            spaces = (max_len - len(guild_member['name'])) * " "
+            message = f"|{guild_member['name']}{spaces}|    {enchanted}    |    {gemmed}    |\n"
+            result = result + message
+
+        return result
+
