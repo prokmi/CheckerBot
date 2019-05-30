@@ -43,6 +43,10 @@ class ArmoryAPI:
         response = f"Postava: {resp['name']} - {resp['realm']} \n"
         response = response + self.check_enchants(enchants) + "\n"
         response = response + self.check_gems(gems) + "\n"
+        if "ilvl" in response:
+            response = response + f"Doplň si to, {resp['name']}! \n"
+        else:
+            response = response + f"Vzorná práce, {resp['name']}! \n"
         return response
 
     def parse_result(self, profile, audit) -> tuple:
@@ -175,10 +179,10 @@ class ArmoryAPI:
                 response = response + f":scream: Chybí enchant na {items.get(item_name)} [{item[item_name]['name']}], ilvl: {item[item_name]['itemLevel']} :scream:\n"
 
             if item[item_name]['error'] == "small":
-                response = response + f":scream: Malý enchant na {items.get(item_name)} [{item[item_name]['name']}] ({Enchants.SMALL_RING_ENCHANTS.get(item[item_name]['enchant'])}), ilvl: {item[item_name]['itemLevel']} :scream: \n"
+                response = response + f":open_mouth: Malý enchant na {items.get(item_name)} [{item[item_name]['name']}] ({Enchants.SMALL_RING_ENCHANTS.get(item[item_name]['enchant'])}), ilvl: {item[item_name]['itemLevel']} :open_mouth: \n"
 
             if item[item_name]['error'] == "unknown":
-                response = response + f":scream: Neznámý enchant na {items.get(item_name)} [{item[item_name]['name']}] (ID: {item[item_name]['enchant']}), ilvl: {item[item_name]['itemLevel']} :scream:\n"
+                response = response + f":thinking: Neznámý enchant na {items.get(item_name)} [{item[item_name]['name']}] (ID: {item[item_name]['enchant']}), ilvl: {item[item_name]['itemLevel']} :thinking:\n"
 
         if response == "":
             response = ":blush: Všechny enchanty jsou v pořádku! :blush:"
