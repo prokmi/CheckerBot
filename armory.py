@@ -25,6 +25,9 @@ class ArmoryAPI:
             logger.info("Realm not set - setting Drak'thul as default")
             realm = "Drak'thul"
             try_bb = 1
+        elif realm == "burningblade":
+            # TODO yeah, i don't know either - maybe list all realms
+            realm = "Burning Blade"
         else:
             logger.info(f"Received realm {realm}, parsing it into two words..")
             realm = " ".join(re.findall('[A-Z][^A-Z]*', realm))
@@ -55,6 +58,8 @@ class ArmoryAPI:
         return response
 
     def parse_result(self, profile, audit) -> tuple:
+
+        # Predefined dictionaries that I'm going to be working with:
         result = {
             "finger1": {
                 "name": "",
@@ -82,14 +87,11 @@ class ArmoryAPI:
             },
         }
 
-        simple_item = {
+        item_without_gem = {
             "name": "",
             "slot": "",
             "itemLevel": "",
         }
-
-        empty_gems = audit['audit']['emptySockets']
-        gems = audit['audit']['itemsWithEmptySockets']
 
         slots = {
             0: "head",
@@ -111,20 +113,24 @@ class ArmoryAPI:
             16: "offHand",
         }
 
-        array_of_simple_items = []
+        empty_gems = audit['audit']['emptySockets']  # number of gems
+        gems = audit['audit']['itemsWithEmptySockets']  # dict of slots with empty gem slots
+        logger.info(f"Checking gems: missing: {empty_gems} empty slots: {gems}")
+
+        array_of_items_without_gems = []
         for item, key in profile['items'].items():
 
-            # ------------------------------------------------------------
-            # enchant checking
+            # Checking for gems:
             if empty_gems != 0:
                 for gem_item, gem_key in gems.items():
                     if item == slots.get(int(gem_item)):
 
-                        simple_item["name"] = key['name']
-                        simple_item["slot"] = item
-                        simple_item["itemLevel"] = key['itemLevel']
-                        array_of_simple_items.append(simple_item)
+                        item_without_gem["name"] = key['name']
+                        item_without_gem["slot"] = item
+                        item_without_gem["itemLevel"] = key['itemLevel']
+                        array_of_items_without_gems.append(item_without_gem)
 
+            # Checking for enchants - only rings and weapons
             if "finger" in item or "mainHand" in item or "offHand" in item:
                 if key['armor'] != 0:
                     continue
@@ -135,7 +141,7 @@ class ArmoryAPI:
                 except KeyError:
                     result[item]['enchant'] = 0
 
-        return result, array_of_simple_items
+        return result, array_of_items_without_gems
 
     def check_enchants(self, enchantable_items: dict) -> str:
 
@@ -148,6 +154,7 @@ class ArmoryAPI:
             enchantable_items.pop(empty_item)
 
         missing = []
+        # checking the enchants and adding a real error state
         for item, key in enchantable_items.items():
             if "finger" in item:
                 if key['enchant'] == 0:
@@ -171,6 +178,7 @@ class ArmoryAPI:
                         missing.append({item: key})
 
         response = ""
+        # Quick translation to make it more readable
         items = {
             "finger1": "prstenu",
             "finger2": "prstenu",
