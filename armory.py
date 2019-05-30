@@ -151,27 +151,24 @@ class ArmoryAPI:
                 if key['enchant'] == 0:
                     key['error'] = "missing"
                     missing.append({item: key})
-                try:
-                    Enchants.BIG_RING_ENCHANTS.get(key['enchant'])
-                except KeyError:
-                    try:
-                        Enchants.SMALL_RING_ENCHANTS.get(key['enchant'])
-                        key['error'] = "small"
+                else:
+                    if Enchants.BIG_RING_ENCHANTS.get(key['enchant']) is None:
+                        if Enchants.SMALL_RING_ENCHANTS.get(key['enchant']):
+                            key['error'] = "small"
+                        else:
+                            key['error'] = "unknown"
                         missing.append({item: key})
-                    except KeyError:
-                        key['error'] = "unknown"
-                        missing.append({item: key})
+
             if "Hand" in item:
                 if key['enchant'] == 0:
                     key['error'] = "missing"
                     missing.append({item: key})
-                try:
-                    Enchants.WEAPON_ENCHANTS.get(key['enchant'])
-                except KeyError:
-                    key['error'] = "unknown"
-                    missing.append({item: key})
-        response = ""
 
+                    if Enchants.WEAPON_ENCHANTS.get(key['enchant']) is None:
+                        key['error'] = "unknown"
+                        missing.append({item: key})
+
+        response = ""
         items = {
             "finger1": "prstenu",
             "finger2": "prstenu",
@@ -202,4 +199,3 @@ class ArmoryAPI:
             for gem in gems:
                 response = response + f":scream: Chybí gem v itemu [{gem['name']}] (slot: {gem['slot']}), ilvl: {gem['itemLevel']} :scream: \n"
         return response
-
