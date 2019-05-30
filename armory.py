@@ -227,7 +227,7 @@ class ArmoryAPI:
 
     def check_members(self):
         guild_roster = self.get_guild_members()
-        result = "|    Postava    |    Ench    |    Gem    |\n"
+        result = "```\n|    Postava    |    Ench    |    Gem    |\n"
         enchanted = ""
         gemmed = ""
         max_len = 15
@@ -246,6 +246,8 @@ class ArmoryAPI:
             spaces = (max_len - len(guild_member['name'])) * " "
             message = f"|{guild_member['name']}{spaces}|    {enchanted}    |    {gemmed}    |\n"
             result = result + message
-
+        result = result + "```"
         return result
+
+
 
