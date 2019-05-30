@@ -1,5 +1,6 @@
 import logging
 import os
+import re
 
 from wowapi.api import WowApi
 from wowapi.exceptions import WowApiException
@@ -20,14 +21,17 @@ class ArmoryAPI:
     def find_char(self, char_name: str, realm: str = None) -> str:
         try_bb = 0
 
-        if realm == "BurningBlade":
-            realm = "Burning Blade"
-
         if realm is None:
             logger.info("Realm not set - setting Drak'thul as default")
             realm = "Drak'thul"
             try_bb = 1
+        else:
+            logger.info(f"Received realm {realm}, parsing it into two words..")
+            realm = "".join(re.findall('[A-Z][^A-Z]*', realm))
+            logger.info(f"Realm parsed as {realm}")
+
         try:
+            logger.info(f"Searching for {char_name} on {realm}..")
             resp = self.api.get_character_profile('eu', realm, char_name, fields='items')
             audit = self.api.get_character_profile('eu', realm, char_name, fields='audit')
         except WowApiException as e:
@@ -39,6 +43,7 @@ class ArmoryAPI:
             else:
                 return f"Nastala neznámá chyba: {e}"
 
+        logger.info(f"Successfully found {char_name} on {realm}!")
         enchants, gems = self.parse_result(resp, audit)
         response = f"Postava: {resp['name']} - {resp['realm']} \n"
         response = response + self.check_enchants(enchants) + "\n"
