@@ -163,7 +163,7 @@ class ArmoryAPI:
                 if key['enchant'] == 0:
                     key['error'] = "missing"
                     missing.append({item: key})
-
+                else:
                     if Enchants.WEAPON_ENCHANTS.get(key['enchant']) is None:
                         key['error'] = "unknown"
                         missing.append({item: key})
