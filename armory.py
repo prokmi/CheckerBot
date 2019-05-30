@@ -27,7 +27,7 @@ class ArmoryAPI:
             try_bb = 1
         else:
             logger.info(f"Received realm {realm}, parsing it into two words..")
-            realm = "".join(re.findall('[A-Z][^A-Z]*', realm))
+            realm = " ".join(re.findall('[A-Z][^A-Z]*', realm))
             logger.info(f"Realm parsed as {realm}")
 
         try:
