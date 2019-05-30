@@ -243,8 +243,8 @@ class ArmoryAPI:
             elif not "gem v" in current_member:
                 gemmed = ":white_check_mark:"
 
-            spaces = (max_len - len(guild_member['name'])) * "."
-            message = f"|{guild_member['name']}{spaces}|    {enchanted}    |    {gemmed}    |\n"
+            spaces = (max_len - len(guild_member['name'])) * " "
+            message = f"|```{guild_member['name']}```{spaces}|    {enchanted}    |    {gemmed}    |\n"
             result = result + message
 
         return result
