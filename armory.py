@@ -135,6 +135,10 @@ class ArmoryAPI:
             if "finger" in item or "mainHand" in item or "offHand" in item:
                 if key['armor'] != 0:
                     continue
+                try:
+                    key['weaponInfo']
+                except KeyError:
+                    continue
                 result[item]['name'] = key['name']
                 result[item]['itemLevel'] = key['itemLevel']
                 try:
