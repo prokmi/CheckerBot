@@ -232,7 +232,7 @@ class ArmoryAPI:
 
     def check_members(self):
         guild_roster = self.get_guild_members()
-        result = "|         Postava         |    Ench    |    Gem    |\n"
+        result = "|         Postava         |   Ench   |   Gem   |\n"
         enchanted = ""
         gemmed = ""
         max_len = 15
