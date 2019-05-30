@@ -1,13 +1,14 @@
+import os
+
 from discord.ext.commands import Bot
 import logging
 
-from __auth._auth import Auth
 from armory import ArmoryAPI
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('CheckerBot')
 
-TOKEN = Auth.DISCORD_KEY
+TOKEN = os.environ['DISCORD_KEY']
 BOT_PREFIX = "++"
 armory = ArmoryAPI()
 bot = Bot(command_prefix=BOT_PREFIX)

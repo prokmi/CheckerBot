@@ -1,16 +1,9 @@
 import logging
+import os
 
-import requests
-# from wowapi import API
-# from wowapi import API.ArmoryAPI
-# import wowapi
 from wowapi.api import WowApi
-
-
-# api = WoWApi()
 from wowapi.exceptions import WowApiException
 
-from __auth._auth import Auth
 from enchants import Enchants
 
 logging.basicConfig(level=logging.INFO)
@@ -21,7 +14,7 @@ logger = logging.getLogger('ArmoryAPI')
 class ArmoryAPI:
 
     def __init__(self):
-        self.api = WowApi(Auth.BNET_KEY, Auth.BNET_SECRET_KEY)
+        self.api = WowApi(os.environ['BNET_KEY'], os.environ['BNET_SECRET_KEY'])
         logger.info("Armory init")
 
     def find_char(self, char_name: str, realm: str = None) -> str:
