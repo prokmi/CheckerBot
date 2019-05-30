@@ -17,6 +17,8 @@ class Enchants:
     }
 
     WEAPON_ENCHANTS = {
+
+        # BFA Weapon Enchants
         5946: "Coastal Surge",
         5950: "Gale-Force Striking",
         5962: "Versatile Navigation",
@@ -24,4 +26,9 @@ class Enchants:
         5964: "Masterful Navigation",
         5965: "Deadly Navigation",
         5966: "Stalwart Navigation",
+
+        # Death Knight Enchants
+        3368: "Rune of the Fallen Crusader",
+        3847: "Rune of the Stoneskin Gargoyle",
+        3370: "Rune of Razorice"
     }
