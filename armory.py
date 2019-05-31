@@ -256,7 +256,7 @@ class ArmoryAPI:
 
     def find_char_on_both_realms(self, char_name: str) -> str:
         response = self.find_char(char_name, realm="Drak'thul")
-        response = response + "\n" + "- - - - "*20 + "\n"
+        response = response + "\n" + "- - - - "*10 + "\n"
         response = response + self.find_char(char_name, "Burning Blade")
         return response
 
