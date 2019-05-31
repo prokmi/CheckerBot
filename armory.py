@@ -232,7 +232,7 @@ class ArmoryAPI:
 
     def check_members(self):
         guild_roster = self.get_guild_members()
-        result = "|         Postava         |   Ench   |   Gem   |\n"
+        result = "\n|         Postava         |   Ench   |   Gem   |\n"
         enchanted = ""
         gemmed = ""
         max_len = 15
@@ -253,4 +253,11 @@ class ArmoryAPI:
             result = result + message
 
         return result
+
+    def find_char_on_both_realms(self, char_name: str) -> str:
+        response = self.find_char(char_name, realm="Drak'thul")
+        response = response + "\n" + ".-._"*5 + "\n"
+        response = response + self.find_char(char_name, "Burning Blade")
+        return response
+
 
