@@ -33,7 +33,7 @@ async def pomoc(ctx):
                    "**++pomoc** - zobrazí dostupné příkazy \n"
                    "**++zkontroluj** _postava_ _realm_ - zkontroluje enchanty a gemy dané postavy. Jméno realmu pište jednoslovně a ideálně camelcase. "
                    "V případě, že se jedná o Drak'thul, se realm vyplňovat nemusí vůbec. Pokud je postava na Burning Blade a neexistuje na Drak'thulu, tak taky ne.\n"
-                   "**++zkontrolujobe** __postava__ - zkontroluje stejnou postavu jak na Drak'thulu, tak na Burning Blade"
+                   "**++zkontrolujobe** _postava_ - zkontroluje stejnou postavu jak na Drak'thulu, tak na Burning Blade\n"
                    "**++inspekce** - zkontroluje raid sestavu, jestli má vše v pořádku\n"
                    )
 
