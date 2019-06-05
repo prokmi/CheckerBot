@@ -253,7 +253,7 @@ class ArmoryAPI:
             spaces = (max_len - len(guild_member['name'])) * "."
             ilvl = current_member.find("ItemLevel") + len("ItemLevel: ")
 
-            message = f"|`{guild_member['name']}{spaces}`|  {current_member[ilvl: (ilvl  + 3)]}  |    {enchanted}    |    {gemmed}    |\n"
+            message = f"|`{guild_member['name']}{spaces}`|  `{current_member[ilvl: (ilvl  + 3)]}`  |    {enchanted}    |    {gemmed}    |\n"
             result = result + message
 
         return result
