@@ -50,6 +50,7 @@ class ArmoryAPI:
         logger.info(f"Successfully found {char_name} on {realm}!")
         enchants, gems = self.parse_result(resp, audit)
         response = f"Postava: {resp['name']} - {resp['realm']} \n"
+        response = response + f"ItemLevel: {resp['items']['averageItemLevelEquipped']} \n"
         response = response + self.check_enchants(enchants) + "\n"
         response = response + self.check_gems(gems) + "\n"
         if "ilvl" in response:
@@ -232,7 +233,8 @@ class ArmoryAPI:
 
     def check_members(self):
         guild_roster = self.get_guild_members()
-        result = "\n|         Postava         |   Ench   |   Gem   |\n"
+        # result = "\n|         Postava         |   Ench   |   Gem   |\n"
+        result = "\n|         Postava         |  iLvl  |   Ench   |   Gem   |\n"
         enchanted = ""
         gemmed = ""
         max_len = 15
@@ -249,7 +251,9 @@ class ArmoryAPI:
                 gemmed = ":white_check_mark:"
 
             spaces = (max_len - len(guild_member['name'])) * "."
-            message = f"|`{guild_member['name']}{spaces}`|    {enchanted}    |    {gemmed}    |\n"
+            ilvl = current_member.find("ItemLevel") + len("ItemLevel: ")
+
+            message = f"|`{guild_member['name']}{spaces}`|  {current_member[ilvl: (ilvl  + 3)]}  |    {enchanted}    |    {gemmed}    |\n"
             result = result + message
 
         return result
