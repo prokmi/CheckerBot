@@ -222,7 +222,7 @@ class ArmoryAPI:
         guild = self.api.get_guild_profile("eu", "Drak'thul", "Wolves of Darkness", fields="members")
         guild_roster = []
         for member in guild["members"]:
-            if int(member["rank"]) < 2 or int(member["rank"] == 4):
+            if int(member["rank"]) < 2 or int(member["rank"]) == 4:
                 guild_member = {
                     "name": member['character']['name'],
                     "realm": member['character']['realm']
