@@ -229,11 +229,10 @@ class ArmoryAPI:
                 }
                 guild_roster.append(guild_member)
         logger.info(f"Guild roster: {guild_roster}")
-        return guild_roster
+        return sorted(guild_roster, key=lambda k: k["name"])
 
     def check_members(self):
         guild_roster = self.get_guild_members()
-        # result = "\n|         Postava         |   Ench   |   Gem   |\n"
         result = "\n|         Postava         |  iLvl  |   Ench   |   Gem   |\n"
         enchanted = ""
         gemmed = ""
