@@ -20,6 +20,7 @@ class Enchants:
 
         # BFA Weapon Enchants
         5946: "Coastal Surge",
+        5949: "Torrent of Elements",
         5950: "Gale-Force Striking",
         5962: "Versatile Navigation",
         5963: "Quick Navigation",
