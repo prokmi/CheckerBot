@@ -222,18 +222,17 @@ class ArmoryAPI:
         guild = self.api.get_guild_profile("eu", "Drak'thul", "Wolves of Darkness", fields="members")
         guild_roster = []
         for member in guild["members"]:
-            if int(member["rank"]) < 2:
+            if int(member["rank"]) < 2 or int(member["rank"]) == 3:
                 guild_member = {
                     "name": member['character']['name'],
                     "realm": member['character']['realm']
                 }
                 guild_roster.append(guild_member)
         logger.info(f"Guild roster: {guild_roster}")
-        return guild_roster
+        return sorted(guild_roster, key=lambda k: k["name"])
 
     def check_members(self):
         guild_roster = self.get_guild_members()
-        # result = "\n|         Postava         |   Ench   |   Gem   |\n"
         result = "\n|         Postava         |  iLvl  |   Ench   |   Gem   |\n"
         enchanted = ""
         gemmed = ""
