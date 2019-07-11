@@ -14,6 +14,12 @@ class Enchants:
         5943: "+37 Haste",
         5944: "+37 Mastery",
         5945: "+37 Versatility",
+
+        # 8.2 Ring enchants -> move to small after few weeks
+        6108: "Accord of Critical Strike",
+        6109: "Accord of Haste",
+        6110: "Accord of Mastery",
+        6111: "Accord of Versatility",
     }
 
     WEAPON_ENCHANTS = {
@@ -36,4 +42,9 @@ class Enchants:
         # Hunter scopes
         5957: "Incendiary Ammunition",
 
+        # 8.2 Weapon Enchants
+        6112: "Machinist's Brilliance",
+        6148: "Force Multiplier",
+        6149: "Oceanic Restoration",
+        6150: "Naga Hide",
     }
