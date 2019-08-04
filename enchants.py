@@ -40,6 +40,7 @@ class Enchants:
         3370: "Rune of Razorice",
 
         # Hunter scopes
+        5955: "Crow's Nest Scope",
         5957: "Incendiary Ammunition",
 
         # 8.2 Weapon Enchants
