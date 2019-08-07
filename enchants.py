@@ -6,15 +6,13 @@ class Enchants:
         5939: "+27 Haste",
         5940: "+27 Mastery",
         5941: "+27 Versatility",
-
-    }
-
-    BIG_RING_ENCHANTS = {
         5942: "+37 Critical Strike",
         5943: "+37 Haste",
         5944: "+37 Mastery",
         5945: "+37 Versatility",
+    }
 
+    BIG_RING_ENCHANTS = {
         # 8.2 Ring enchants -> move to small after few weeks
         6108: "Accord of Critical Strike",
         6109: "Accord of Haste",
