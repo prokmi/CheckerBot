@@ -280,6 +280,8 @@ class ArmoryAPI:
                     return f"Chyba: Postava {char_name} nenalezena ani na Drak'thul, ani na Burning Blade"
                 else:
                     return f"Nastala neznámá chyba: {e}"
+            except Exception as e:
+                return e
             corruption[guild_member['name']] = statistics["corruption"]["effective_corruption"]
         return corruption
 
