@@ -52,4 +52,9 @@ async def zkontrolujobe(ctx, jmeno: str):
 async def snemovna(ctx):
     await ctx.send(armory.print_corruption())
 
+
+@bot.command()
+async def korupce(ctx):
+    await ctx.send(armory.print_corruption())
+
 bot.run(TOKEN)

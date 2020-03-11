@@ -281,7 +281,7 @@ class ArmoryAPI:
             corruption[guild_member['name']] = statistics["corruption"]["effective_corruption"]
         return corruption
 
-    def print_corruption(self,):
+    def print_corruption(self):
         list_of_corruptions = self.check_corruption()
         result = "\n|         Postava         |  Korupce  |\n"
         for member, corruption in list_of_corruptions.items():
