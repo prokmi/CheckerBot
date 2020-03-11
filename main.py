@@ -55,6 +55,6 @@ async def snemovna(ctx):
 
 @bot.command()
 async def korupce(ctx):
-    await ctx.send("wtf")
+    await ctx.send(armory.check_corruption())
 
 bot.run(TOKEN)
