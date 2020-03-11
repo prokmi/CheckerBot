@@ -266,6 +266,7 @@ class ArmoryAPI:
     def check_corruption(self):
         guild_roster = self.get_guild_members()
         corruption = {}
+        print(guild_roster)
         for guild_member in guild_roster:
             realm = guild_member["realm"].replace("\'", "").replace(" ", "-").lower()
             char_name = guild_member["name"].lower()
@@ -279,6 +280,7 @@ class ArmoryAPI:
                 else:
                     return f"Nastala neznámá chyba: {e}"
             corruption[guild_member['name']] = statistics["corruption"]["effective_corruption"]
+        print(corruption)
         return corruption
 
     def print_corruption(self):
@@ -288,3 +290,4 @@ class ArmoryAPI:
             spaces = (15 - len(member)) * "."
             result += f"|`{member}{spaces}`|  `{int(corruption)}`{' ' if corruption < 10 else ''}  |\n"
         return result
+
