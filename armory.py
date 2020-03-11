@@ -287,7 +287,7 @@ class ArmoryAPI:
 
     def print_corruption(self):
         list_of_corruptions = self.check_corruption()
-        result = "\n|         Postava         |  Korupce   |\n"
+        result = "\n|         Postava         |  Korupce  |\n"
         for member, corruption in list_of_corruptions.items():
             spaces = (15 - len(member)) * "."
             result += f"|`{member}{spaces}`|       {' ' if corruption < 10 else ''}`{int(corruption)}`{' ' if corruption < 10 else ''}       |\n"
