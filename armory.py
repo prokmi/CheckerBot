@@ -1,6 +1,7 @@
 import logging
 import os
 import re
+import time
 
 from wowapi.api import WowApi
 from wowapi.exceptions import WowApiException
@@ -272,6 +273,7 @@ class ArmoryAPI:
             try:
                 logger.info(f"Searching for {char_name} on {realm}..")
                 statistics = self.api.get_character_stats_summary('eu', "profile-eu", realm, char_name, locale="en_GB")
+                time.sleep(0.5)
             except WowApiException as e:
 
                 if "404" in str(e):
