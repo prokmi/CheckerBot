@@ -263,4 +263,28 @@ class ArmoryAPI:
         response = response + self.find_char(char_name, "Burning Blade")
         return response
 
+    def check_corruption(self):
+        guild_roster = self.get_guild_members()
+        corruption = {}
+        for guild_member in guild_roster:
+            realm = guild_member["realm"].replace("\'", "").replace(" ", "-").lower()
+            char_name = guild_member["name"].lower()
+            try:
+                logger.info(f"Searching for {char_name} on {realm}..")
+                statistics = self.api.get_character_stats_summary('eu', "profile-eu", realm, char_name, locale="en_GB")
+            except WowApiException as e:
 
+                if "404" in str(e):
+                    return f"Chyba: Postava {char_name} nenalezena ani na Drak'thul, ani na Burning Blade"
+                else:
+                    return f"Nastala neznámá chyba: {e}"
+            corruption[guild_member['name']] = statistics["corruption"]["effective_corruption"]
+        return corruption
+
+    def print_corruption(self,):
+        list_of_corruptions = self.check_corruption()
+        result = "\n|         Postava         |  Korupce  |\n"
+        for member, corruption in list_of_corruptions.items():
+            spaces = (15 - len(member)) * "."
+            result += f"|`{member}{spaces}`|  `{int(corruption)}`{' ' if corruption < 10 else ''}  |\n"
+        return result

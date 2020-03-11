@@ -47,4 +47,9 @@ async def inspekce(ctx):
 async def zkontrolujobe(ctx, jmeno: str):
     await ctx.send(armory.find_char_on_both_realms(jmeno))
 
+
+@bot.command()
+async def snemovna(ctx):
+    await ctx.send(armory.print_corruption())
+
 bot.run(TOKEN)
