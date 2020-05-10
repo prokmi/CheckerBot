@@ -13,7 +13,6 @@ class Enchants:
     }
 
     BIG_RING_ENCHANTS = {
-        # 8.2 Ring enchants -> move to small after few weeks
         6108: "Accord of Critical Strike",
         6109: "Accord of Haste",
         6110: "Accord of Mastery",

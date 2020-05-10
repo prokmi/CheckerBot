@@ -24,7 +24,7 @@ async def on_ready():
 
 @bot.command()
 async def zkontroluj(ctx, jmeno: str, realm: str = None):
-    await ctx.send(armory.find_char(jmeno, realm))
+    await ctx.send(armory.print_enchants_and_gems(jmeno, realm))
 
 
 @bot.command()
@@ -45,7 +45,7 @@ async def inspekce(ctx):
 
 @bot.command()
 async def zkontrolujobe(ctx, jmeno: str):
-    await ctx.send(armory.find_char_on_both_realms(jmeno))
+    await ctx.send(armory.print_enchants_and_gems_on_both_realms(jmeno))
 
 
 @bot.command()
