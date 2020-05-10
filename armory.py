@@ -19,7 +19,7 @@ class ArmoryAPI:
     def find_char(self, char_name: str, realm: str = None) -> str:
         try_bb = 0
 
-        if realm is None:
+        if not realm:
             logger.info("Realm not set - setting Drak'thul as default")
             realm = "drakthul"
             try_bb = 1
@@ -39,6 +39,7 @@ class ArmoryAPI:
                 return f"Nastala neznámá chyba: {e}"
 
         logger.info(f"Successfully found {char_name} on {realm}!")
+        print(resp)
         return resp
 
     def parse_result(self, equipment):
@@ -96,8 +97,8 @@ class ArmoryAPI:
         for guild_member in guild_roster:
             current_member = self.find_char(char_name=guild_member['name'], realm=guild_member['realm'])
             enchants, gems = self.parse_result(current_member)
-            enchanted = ":white_check_mark:" if enchants else ":no_entry"
-            gemmed = ":white_check_mark:" if gems else ":no_entry"
+            enchanted = ":white_check_mark:" if enchants else ":no_entry:"
+            gemmed = ":white_check_mark:" if gems else ":no_entry:"
 
             spaces = (max_len - len(guild_member['name'])) * "."
             ilvl = self.api.get_summary(guild_member['name'], guild_member['realm'])['equipped_item_level']
