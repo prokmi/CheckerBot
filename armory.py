@@ -23,13 +23,8 @@ class ArmoryAPI:
             logger.info("Realm not set - setting Drak'thul as default")
             realm = "drakthul"
             try_bb = 1
-        elif realm == "burningblade" or "Burning Blade":
+        elif realm == "burningblade" or realm == "Burning Blade":
             realm = "burning-blade"
-        else:
-            if not " " in realm:
-                logger.info(f"Received realm {realm}, parsing it into two words..")
-                realm = " ".join(re.findall('[A-Z][^A-Z]*', realm))
-                logger.info(f"Realm parsed as {realm}")
 
         try:
             logger.info(f"Searching for {char_name} on {realm}..")
@@ -61,9 +56,15 @@ class ArmoryAPI:
                     ench_state = False
                     break
 
-                if ench_json[0]['enchantment_id'] not in Enchants.BIG_RING_ENCHANTS.keys():
-                    ench_state = False
-                    break
+                if item['slot']['type'] in ("FINGER_1", "FINGER_2"):
+                    if ench_json[0]['enchantment_id'] not in Enchants.BIG_RING_ENCHANTS.keys():
+                        ench_state = False
+                        break
+
+                if item['slot']['type'] in ("MAIN_HAND", "OFF_HAND"):
+                    if ench_json[0]['enchantment_id'] not in Enchants.WEAPON_ENCHANTS.keys():
+                        ench_state = False
+                        break
 
         for item in equipment:
             sock_json = item.get("sockets")
@@ -79,7 +80,7 @@ class ArmoryAPI:
         guild = self.api.get_guild_roster("wolves-of-darkness", "drakthul")
         guild_roster = []
         for member in guild:
-            if int(member["rank"]) < 2 or int(member["rank"]) == 3:
+            if int(member["rank"]) < 3:
                 guild_member = {
                     "name": member['character']['name'].lower(),
                     "realm": member['character']['realm']["slug"].lower()
@@ -101,7 +102,7 @@ class ArmoryAPI:
             spaces = (max_len - len(guild_member['name'])) * "."
             ilvl = self.api.get_summary(guild_member['name'], guild_member['realm'])['equipped_item_level']
 
-            message = f"|`{guild_member['name']}{spaces}`|  `{current_member[ilvl: (ilvl  + 3)]}`  |    {enchanted}    |    {gemmed}    |\n"
+            message = f"|`{guild_member['name'].capitalize()}{spaces}`|  `{ilvl}`  |    {enchanted}    |    {gemmed}    |\n"
             result = result + message
 
         return result
@@ -115,9 +116,9 @@ class ArmoryAPI:
     def print_enchants_and_gems(self, char_name, realm):
         char = self.find_char(char_name, realm)
         enchants, gems = self.parse_result(char)
-        response = f"Postava {char_name} - {realm}:\n"
-        response += f"Stav enchantů: {':white_check_mark:' if enchants else ':no_entry'}\n"
-        response += f"Stav gemů: {':white_check_mark:' if gems else ':no_entry'}\n"
+        response = f"Postava {char_name.capitalize()} - {realm.capitalize()}:\n"
+        response += f"Stav enchantů: {':white_check_mark:' if enchants else ':no_entry:'}\n"
+        response += f"Stav gemů: {':white_check_mark:' if gems else ':no_entry:'}\n"
         if not gems or not enchants:
             response += "Doplň si to!"
         return response
