@@ -39,7 +39,6 @@ class ArmoryAPI:
                 return f"Nastala neznámá chyba: {e}"
 
         logger.info(f"Successfully found {char_name} on {realm}!")
-        print(resp)
         return resp
 
     def parse_result(self, equipment):

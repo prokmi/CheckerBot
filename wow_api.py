@@ -10,7 +10,6 @@ class WoWAPI:
     def _get_url(self, path):
         token = self._get_token()
         url = f"https://eu.api.blizzard.com{path}?namespace=profile-eu&locale=en_GB&access_token={token}"
-        print(url)
         response = requests.get(url,
                                 headers={'Authorization': f'Bearer {token}'})
         if not response.status_code == 200:
